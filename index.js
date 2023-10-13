@@ -46,17 +46,21 @@ async function fetchCharacters() {
   }
 }
 // Task 3
-prevButton.addEventListener('click', () => {
-if (page > 1) {
-  page--;
-  fetchCharacters();
-}
+prevButton.addEventListener("click", () => {
+  if (page > 1) {
+    page--;
+    fetchCharacters();
+  }
 });
-nextButton.addEventListener('click', () => {
+nextButton.addEventListener("click", () => {
   if (page < maxPage) {
     page++;
     fetchCharacters();
   }
-  });
-  
+});
+
+// Task 4
+
+searchBar.addEventListener("submit", () => {});
+
 fetchCharacters();
