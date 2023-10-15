@@ -22,7 +22,7 @@ async function fetchCharacters() {
   //Empty cardContainer
   cardContainer.innerHTML = "";
 
-  const url = `https://rickandmortyapi.com/api/character?page=${page}`;
+  const url = `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`;
   try {
     const response = await fetch(url);
     const characterData = await response.json();
@@ -32,14 +32,14 @@ async function fetchCharacters() {
     console.log(maxPage);
     console.log(page);
 
-    const characters = await characterData.results;
+    const characters = characterData.results;
     pagination.textContent = `${page} / ${maxPage}`;
 
     characters.forEach((character) => {
       cardContainer.append(createCharacterCard(character));
     });
   } catch (error) {
-    console.log("Error message: ", error);
+    console.error("Error message: ", error);
     const errorMessage = document.createElement("p");
     errorMessage.textContent = "Sorry we failed :((((((";
     cardContainer.append(errorMessage);
@@ -61,6 +61,22 @@ nextButton.addEventListener("click", () => {
 
 // Task 4
 
-searchBar.addEventListener("submit", () => {});
+// Search by Submit
+// searchBar.addEventListener("submit", (event) => {
+//   event.preventDefault();
+
+//   const formElements = event.target.elements;
+//   searchQuery = formElements.query.value;
+//   // console.log(event.target.elements.query.value);
+//   fetchCharacters();
+// });
+
+// Search by Input
+const searchInput = document.querySelector(".search-bar__input");
+console.log(searchInput);
+searchInput.addEventListener("input", () => {
+  searchQuery = searchInput.value;
+  fetchCharacters();
+});
 
 fetchCharacters();
